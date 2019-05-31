@@ -1,27 +1,51 @@
 class Main {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-
-    	int t = sc.nextInt();
+   
+        
+        int t = In.readInt();
         for (int i = 0; i < t; i++) {
-            testCase(sc);
-        }
-    }
-
-    public static void testCase(Scanner sc) {
-        int n = sc.nextInt();
-        int m = sc.nextInt();
-
-        ArrayList<ArrayList<Integer>> G = new ArrayList<ArrayList<Integer>>();
-        for (int i = 0; i < n; i++) {
-            G.add(new ArrayList<Integer>());
-        }
-
-        for (int i = 0; i < m; i++) {
-            int u = sc.nextInt();
-            int v = sc.nextInt();
-
-            G.get(u).add(v);
-            G.get(v).add(u);
+            testCase();
         }
         
+    }
+
+    public static void testCase() {
+  
+        int n = In.readInt();
+        int m = In.readInt();
+        
+    	LinkedList<Integer> adj[]; 
+        adj = new LinkedList[n];
+        
+        boolean visited[] = new boolean[n];
+        
+        // add edges
+        for(int i = 0; i < n ; i++){ 
+            adj[i] = new LinkedList<>();
+            }
+        int a;
+        int b;
+        
+        for (int i = 0; i < m ; i++){
+        	a = In.readInt();
+        	b = In.readInt();
+        	adj[a].add(b);
+        	adj[b].add(a);
+        }
+        
+        DFS (0, visited, adj)
+    }
+     
+    void DFS(int s, boolean visited[], LinkedList<Integer> adj[]) {
+    
+        visited[s] = true;
+        Out.println(s + " ");
+ 
+        Iterator ite = adj[s].listIterator();
+        while (ite.hasNext())
+        {
+            int new = ite.next();
+            if (!visited[new])
+                DFS(new, visited, adj);
+            }
+        }  
