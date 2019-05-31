@@ -1,0 +1,63 @@
+class Main {
+    public static void main(String[] args) {
+   
+        
+        int t = In.readInt();
+        for (int i = 0; i < t; i++) {
+            testCase();
+        }
+        
+    }
+
+    public static void testCase() {
+  
+        int n = In.readInt();
+        int m = In.readInt();
+        
+    	LinkedList<Integer> adj[]; 
+        adj = new LinkedList[n];
+        
+        boolean visited[] = new boolean[n];
+        
+        // add edges
+        for(int i = 0; i < n ; i++){ 
+            adj[i] = new LinkedList<>();
+            }
+        int a;
+        int b;
+        
+        for (int i = 0; i < m ; i++){
+        	a = In.readInt();
+        	b = In.readInt();
+        	adj[a].add(b);
+        	adj[b].add(a);
+        }
+        
+        BFS (n, 0, visited, adj)
+    }
+     
+    void BFS(int n, int s, boolean visited[], LinkedList<Integer> adj[]) {
+        
+        LinkedList<Integer> queue = new LinkedList<Integer>();
+        for (int i = 0; i < n; i++) {
+            queue.clear();
+            queue.add(i);
+            color[i] = 0;
+            
+            while (queue.size() != 0) 
+            { 
+              s = queue.poll();
+
+              Iterator ite = adj[s].listIterator();
+              while (ite.hasNext())
+              {
+                  int new = ite.next();
+                  
+                  if (!visited[new]) {
+                    visited[new] = true; 
+                    queue.add(new);
+                    }
+              }
+        }  
+        }
+        }
