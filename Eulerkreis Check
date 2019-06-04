@@ -20,7 +20,6 @@ class Main {
     	LinkedList<Integer> adj[]; 
         adj = new LinkedList[n];
         
-        boolean visited[] = new boolean[n];
         
         // add edges
         for(int i = 0; i < n ; i++){ 
@@ -36,13 +35,18 @@ class Main {
         	adj[b].add(a);
         }
         
-        DFS (0, visited, adj)
+        int res = isEulerian(n, adj);
+        if (res==0)
+            Out.println("not eulerian");
+        else if(res==1) 
+            Out.println("semi eulerian");
+        else
+            Out.println("eulerian");
     }
      
-    void DFS(int s, boolean visited[], LinkedList<Integer> adj[]) {
+    public static void DFS(int s, boolean visited[], LinkedList<Integer> adj[]) {
     
         visited[s] = true;
-        Out.println(s + " ");
  
         Iterator ite = adj[s].listIterator();
         while (ite.hasNext())
@@ -52,3 +56,59 @@ class Main {
                 DFS(new, visited, adj);
             }
         }  
+
+    // Method to check if all non-zero degree vertices are 
+    // connected. It mainly does DFS traversal starting from 
+    
+    public static boolean isConnected(int n, LinkedList<Integer> adj[]) {
+    
+        boolean visited[] = new boolean[n];
+        int i;
+        
+        // Mark all vertex non visited
+        for (i = 0; i < n; i++) {
+            visited[i] = false;
+            }
+        // Find a vertex with non-zero degree 
+        for (i = 0; i < n; i++) {
+            if (adj[i].size() != 0)
+                break;
+        }
+        if (i==n)
+            return true;
+            
+        // Start DFS traversal from a vertex with non-zero degree 
+        DFS(i, visited, adj)
+        
+        for (i=0; i < V; i++) {
+            if (visited[i] == false && adj[i].size > 0)
+                return false;
+        }
+        
+        return true;
+    }
+    
+    public static int isEulerian(int n, adj) {
+        
+        // Check if all non-zero degree vertices are connected 
+        if (isConnected(n, adj) == false)
+            return 0;
+            
+        // Count vertices with odd degree 
+        int odd = 0;
+        for (int i = 0; i < n; i++) {
+            if (adj[i].size %2 != 0)
+                odd++;
+        }
+        
+        // If count is more than 2, then graph is not Eulerian 
+        if (odd > 2)
+            return 0;
+        
+        // If odd count is 2, then semi-eulerian. 
+        // If odd count is 0, then eulerian 
+        // Note that odd count can never be 1 for undirected graph 
+        
+        return (odd==2) ? 1 : 2;
+    }
+}
