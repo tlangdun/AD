@@ -1,0 +1,35 @@
+import java.util.Arrays;
+class Main {
+    public static void main(String[] args) {
+        int[] a = new int[]{54,8,564,34,5,568,234,5345,4,58,4,5,234,3,57,468,56,23,234,35,7,468,45,35};
+        sort(a);
+        System.out.println(Arrays.toString(a));
+    }
+    public static int binarySearch(int arr[], int s, int e, int target) {
+        int start = s;
+        int end = e;
+        int pos = -1;
+        while (start <= end) {
+            int mid = (start + end) / 2;
+            if (arr[mid] >= target) {
+                end = mid - 1;
+            } else {
+                pos = mid;
+                start = mid + 1;
+            }
+        }
+        return pos;
+    }
+    public static void sort(int arr[]) {
+        int n = arr.length;
+        for (int i = 1; i < n; ++i) {
+            int index = binarySearch(arr, 0, i - 1, arr[i]);
+
+            for (int j = i - 1; j > index; j--) {
+                int tmp = arr[j + 1];
+                arr[j + 1] = arr[j];
+                arr[j] = tmp;
+            }
+        }
+    }
+}
